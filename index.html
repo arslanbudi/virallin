@@ -18,11 +18,9 @@
             justify-content: center;
             min-height: 100vh;
             overflow-x: hidden;
-            /* Padding default hanya untuk desktop */
             padding: 20px;
         }
 
-        /* --- LOGIKA LAYOUT --- */
         .container {
             max-width: 800px;
             width: 100%;
@@ -40,7 +38,6 @@
             background-color: #000;
             cursor: pointer;
             overflow: hidden;
-            /* Default Desktop Style */
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(254, 44, 85, 0.3);
             aspect-ratio: 16 / 9;
@@ -49,19 +46,17 @@
         .video-click-area video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Video memenuhi area tanpa gepeng */
+            object-fit: cover;
             display: block;
-            pointer-events: none;
+            pointer-events: none; /* Agar klik tembus ke tag <a> */
         }
 
-        /* Efek Hover (Desktop) */
         .video-click-area:hover {
             transform: scale(1.01);
             transition: transform 0.3s ease;
             box-shadow: 0 0 30px rgba(254, 44, 85, 0.6);
         }
 
-        /* Tombol Play Overlay */
         .play-button {
             position: absolute;
             top: 50%;
@@ -98,44 +93,13 @@
             z-index: 10;
         }
 
-        /* --- RESPONSIVE MOBILE FULL SCREEN --- */
         @media (max-width: 768px) {
-            body {
-                padding: 0; /* Hapus padding body di HP */
-                justify-content: flex-start;
-                background-color: #000;
-            }
-
-            .container {
-                max-width: 100%;
-                margin: 0;
-                height: 100vh; /* Fallback */
-                height: 100dvh; /* Dynamic Height modern */
-            }
-
-            .video-click-area {
-                width: 100%;
-                height: 100%; /* Memenuhi container */
-                aspect-ratio: unset; /* Abaikan rasio aspek, ikut layar */
-                border-radius: 0; /* Sudut tajam untuk full screen */
-                box-shadow: none;
-                max-height: none;
-            }
-
-            .video-click-area:hover {
-                transform: none; /* Matikan efek zoom di HP */
-            }
-
-            .footer {
-                position: absolute;
-                bottom: 20px;
-                width: 100%;
-                text-shadow: 1px 1px 2px black;
-                color: rgba(255,255,255,0.6);
-            }
+            body { padding: 0; justify-content: flex-start; }
+            .container { max-width: 100%; height: 100dvh; }
+            .video-click-area { width: 100%; height: 100%; border-radius: 0; aspect-ratio: unset; }
+            .footer { position: absolute; bottom: 20px; width: 100%; }
         }
 
-        /* Animasi */
         @keyframes pulse-play { 
             0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); } 
             70% { box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); } 
@@ -146,19 +110,11 @@
 <body>
  
     <div class="container">
-        
-        <!-- LINK VIDEO UTAMA -->
-        <a href="https://www.effectivegatecpm.com/ms44f37fde?key=2b60154a6640e24a49db9d2d589c4bde" class="video-click-area" target="_blank">
-            
-            <!-- 
-               CATATAN: 
-               Atribut 'muted' WAJIB ada agar 'autoplay' berfungsi di Chrome/Safari Mobile.
-               Tanpa 'muted', video hanya akan diam (hitam/poster) sampai user klik.
-            -->
+        <!-- ID 'rotatorLink' ditambahkan untuk JavaScript -->
+        <a href="#" id="rotatorLink" class="video-click-area" target="_blank">
             <video autoplay loop muted playsinline poster="banner.png">
                 <source src="video.mp4" type="video/mp4">
             </video>
-            
             <div class="play-button"></div>
         </a>
 
@@ -167,8 +123,38 @@
         </div>
     </div>
 
-    <!-- Histats.com  (div with counter) --><div id="histats_counter"></div>
-    <!-- Histats.com  START  (aync)-->
+    <script type="text/javascript">
+        // --- DAFTAR DIRECT LINK ANDA DISINI ---
+        const links = [ 
+            "https://www.profitablecpmratenetwork.com/py0sddpe83?key=0e45ea863f0532af90c5a79e6dd5d152",
+            "https://wwpb.ailooe.com/redirect-zone/058f7788",
+            "https://www.profitablecpmratenetwork.com/ge65qx6gs?key=28a0fcaf13c60ae90e1d94503ac2f67b"
+        ];
+
+        const rotatorElement = document.getElementById('rotatorLink');
+
+        // Fungsi untuk mengambil link secara acak
+        function getRandomLink() {
+            const index = Math.floor(Math.random() * links.length);
+            return links[index];
+        }
+
+        // Jalankan saat area video diklik
+        rotatorElement.addEventListener('click', function(e) {
+            // Pilih link baru setiap kali klik terjadi
+            const chosenLink = getRandomLink();
+            this.href = chosenLink;
+            
+            // Log ke console untuk pengecekan (bisa dihapus nanti)
+            console.log("Mengarahkan ke: " + chosenLink);
+        });
+
+        // Set link awal saat halaman pertama kali dibuka
+        rotatorElement.href = getRandomLink();
+    </script>
+
+    <!-- Histats (Tetap Sama) -->
+    <div id="histats_counter"></div>
     <script type="text/javascript">var _Hasync= _Hasync|| [];
     _Hasync.push(['Histats.start', '1,4884516,4,24,200,50,00011111']);
     _Hasync.push(['Histats.fasi', '1']);
@@ -178,8 +164,5 @@
     hs.src = ('//s10.histats.com/js15_as.js');
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
     })();</script>
-    <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4884516&101" alt="free web site hit counter" border="0"></a></noscript>
-    <!-- Histats.com  END  -->
-
 </body>
 </html>
